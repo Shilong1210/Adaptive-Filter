@@ -1,0 +1,10 @@
+module DA_Output(clk, DA_clk, DA_in, DA_out);
+input clk;
+output DA_clk;
+input [7:0] DA_in;
+output reg [7:0] DA_out;
+assign DA_clk = clk;
+always @ (posedge clk) begin
+  DA_out <= DA_in;
+end
+endmodule

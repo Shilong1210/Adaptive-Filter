@@ -1,0 +1,91 @@
+module fir_coef(clk, rst, ref, step, h0, h1, h2, h3, h4, h5, h6, h7, h8)
+parameter step_size = 10;
+input clk, rst;
+input [7:0] ref;
+input signed [step_size-1:0] step;
+output signed [step_size+7:0] h0, h1, h2, h3, h4, h5, h6, h7, h8;
+reg [7:0] sample1;
+reg [7:0] sample2;
+reg [7:0] sample3;
+reg [7:0] sample4;
+reg [7:0] sample5;
+reg [7:0] sample6;
+reg [7:0] sample7;
+reg [7:0] sample8;
+reg [step_size+7:0] save0;
+reg [step_size+7:0] save1;
+reg [step_size+7:0] save2;
+reg [step_size+7:0] save3;
+reg [step_size+7:0] save4;
+reg [step_size+7:0] save5;
+reg [step_size+7:0] save6;
+reg [step_size+7:0] save7;
+reg [step_size+7:0] save8;
+initial begin
+sample1 <= 0;
+sample2 <= 0;
+sample3 <= 0;
+sample4 <= 0;
+sample5 <= 0;
+sample6 <= 0;
+sample7 <= 0;
+sample8 <= 0;
+save0 <= 0;
+save1 <= 0;
+save2 <= 0;
+save3 <= 0;
+save4 <= 0;
+save5 <= 0;
+save6 <= 0;
+save7 <= 0;
+save8 <= 0;
+end
+assign h0 = save0 + step * ref;
+assign h1 = save1 + step * sample1;
+assign h2 = save2 + step * sample2;
+assign h3 = save3 + step * sample3;
+assign h4 = save4 + step * sample4;
+assign h5 = save5 + step * sample5;
+assign h6 = save6 + step * sample6;
+assign h7 = save7 + step * sample7;
+assign h8 = save8 + step * sample8;
+always @ (posedge clk or negedge rst) begin
+if(!rst) begin
+  sample1 <= 0;
+  sample2 <= 0;
+  sample3 <= 0;
+  sample4 <= 0;
+  sample5 <= 0;
+  sample6 <= 0;
+  sample7 <= 0;
+  sample8 <= 0;
+  save0 <= 0;
+  save1 <= 0;
+  save2 <= 0;
+  save3 <= 0;
+  save4 <= 0;
+  save5 <= 0;
+  save6 <= 0;
+  save7 <= 0;
+  save8 <= 0;
+end
+else begin
+  sample1 <= ref;
+  sample2 <= sample1;
+  sample3 <= sample2;
+  sample4 <= sample3;
+  sample5 <= sample4;
+  sample6 <= sample5;
+  sample7 <= sample6;
+  sample8 <= sample7;
+  save0 <= h0;
+  save1 <= h1;
+  save2 <= h2;
+  save3 <= h3;
+  save4 <= h4;
+  save5 <= h5;
+  save6 <= h6;
+  save7 <= h7;
+  save8 <= h8;
+end
+endmodule

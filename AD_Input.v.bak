@@ -1,0 +1,12 @@
+module AD_input(clk, AD_clk, DA_clk, AD_in, AD_out);
+input clk;
+output AD_clk;
+output DA_clk;
+input [7:0] AD_in;
+output reg [7:0] AD_out;
+assign AD_clk = clk;
+assign DA_clk = clk;
+always @ (posedge clk) begin
+  AD_out <= AD_in;
+end
+endmodule

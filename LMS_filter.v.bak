@@ -1,0 +1,18 @@
+module LMS_filter(clk, rst, data, ref, signal);
+parameter step_size = 10;
+input clk, rst;
+input [7:0] data;
+input [7:0] ref;
+output signed [7:0] signal;
+wire signed [step_size+7:0] h0, h1, h2, h3, h4, h5, h6, h7, h8;
+wire [7:0] delay_out;
+wire signed [step_size+15:0] filter_out;
+wire signed [15:0] filter_out_int;
+wire signed [7:0] error_out;
+fir_coef coef1 (.clk(clk), .rst(rst), .ref(ref), .step(error_out), .h0(h0), .h1(h1), .h2(h2), .h3(h3), .h4(h4), .h5(h5), .h6(h6), .h7(h7), .h8(h8));
+fir_filter filter1 (.clk(clk), .rst(rst), .ref(ref), .h0(h0), .h1(h1), .h2(h2), .h3(h3), .h4(h4), .h5(h5), .h6(h6), .h7(h7), .h8(h8), .out(filter_out));
+delay_8 delay1 (.clk(clk), .rst(rst), .in(data), .out(delay_out));
+assign filter_out_int = filter_out >> step_size;
+assign error_out = delay_out - filter_out[7:0];
+assign signal = error_out;
+endmodule;
