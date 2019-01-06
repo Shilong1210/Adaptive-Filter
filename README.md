@@ -1,7 +1,7 @@
 # Adaptive-Filter
 Adaptive Filter for ECG Signal Processing  
 
-Result:  
+## Result 
 First Line: Original Signal  
 Second Line: Reference Signal  
 Third Line: Filtered Signal  
